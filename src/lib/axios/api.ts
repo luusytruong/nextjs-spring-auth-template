@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const getURL = () => process.env.NEXT_PUBLIC_API_URL;
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: typeof window === "undefined" ? getURL() : "/api/v1",
   withCredentials: true,
   validateStatus: (status) => status >= 200 && status < 600,
 });
