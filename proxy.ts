@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
   }
 
   if (refreshToken) {
-    const res = await fetch("http://localhost:3000/api/v1/auth/refresh", {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/refresh", {
       method: "POST",
       headers: {
         cookie: `refresh_token=${refreshToken.value}`,
