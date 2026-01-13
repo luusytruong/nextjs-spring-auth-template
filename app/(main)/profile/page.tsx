@@ -6,6 +6,8 @@ interface ProfilePageProps {
   // props types here
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfilePage({}: ProfilePageProps) {
   const data = await userApi.me();
 
