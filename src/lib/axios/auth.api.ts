@@ -3,7 +3,7 @@ import type {
   FullUser,
   LoginRequest,
   RegisterRequest,
-} from "@/types";
+} from "@/components/ui/types";
 import api from "./api";
 
 export const userApi = {

@@ -4,7 +4,7 @@ import { FormEvent, ReactNode } from "react";
 import Form, { FormProps } from "../ui/form";
 import { cn } from "@/utils";
 import Button from "../ui/button";
-import ButtonLink from "../common/button-link";
+import ButtonLink from "../ui/button-link";
 import Image from "next/image";
 
 interface FormAuthLayoutProps {
@@ -32,7 +32,7 @@ const FormAuthLayout = ({
   };
 
   return (
-    <div className="text-sm w-full h-full flex items-center justify-center p-4">
+    <div className="text-base w-full h-full flex items-center justify-center p-4">
       <Form
         padding={formProps?.padding}
         className={cn("w-90", formProps?.className)}
@@ -72,10 +72,10 @@ const FormAuthLayout = ({
               </Button>
             </>
           )}
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center gap-2 text-sm">
             <span>{isLogin ? "Chưa có" : "Đã có"} tài khoản?</span>
             <ButtonLink
-              href={isLogin ? "/auth/register" : "/auth/login"}
+              href={isLogin ? "/register" : "/login"}
               className="text-primary underline"
             >
               {isLogin ? "Đăng ký" : "Đăng nhập"}

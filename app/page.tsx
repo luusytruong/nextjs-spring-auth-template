@@ -1,4 +1,4 @@
-import ButtonLink from "@/components/common/button-link";
+import ButtonLink from "@/components/ui/button-link";
 import Image from "next/image";
 
 export default function HomePage() {
@@ -42,18 +42,11 @@ export default function HomePage() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image
-              className="dark:invert"
-              src="/assets/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
             Deploy Now
           </a>
           <ButtonLink
             className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/8 px-5 transition-colors hover:border-transparent hover:bg-black/4 dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="/auth/login"
+            href="/login"
             rel="noopener noreferrer"
           >
             login

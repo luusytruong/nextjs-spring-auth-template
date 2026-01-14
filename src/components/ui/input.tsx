@@ -2,7 +2,7 @@
 
 import { cn } from "@/utils";
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
-import type { ButtonIconProps } from "@/types";
+import type { ButtonIconProps } from "@/components/ui/types";
 
 type InputElement = "input" | "textarea" | "select";
 
@@ -67,7 +67,7 @@ const Input = <T extends InputElement = "input">({
           {...(props as ComponentPropsWithoutRef<T>)}
           required={required}
           className={cn(
-            "w-full text-base md:text-sm outline-none transition-all appearance-none",
+            "w-full outline-none transition-all appearance-none",
             "border-auto",
             "disabled:cursor-not-allowed disabled:opacity-50",
             variants[variant],

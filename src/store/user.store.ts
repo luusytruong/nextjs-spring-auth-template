@@ -1,12 +1,16 @@
-import type { FullUser, LoginRequest, RegisterRequest } from "@/types";
+import type {
+  FullUser,
+  LoginRequest,
+  RegisterRequest,
+} from "@/components/ui/types";
 import { handleApiResponse } from "@/utils/response";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { userApi } from "@/lib/axios/auth.api";
+import { cookieStorage } from "@/lib/cookie";
 
 interface UserStore {
   user: FullUser | null;
-  isLoading: boolean;
 
   setUser: (user: FullUser) => void;
   clearUser: () => void;
@@ -21,45 +25,38 @@ export const useUserStore = create<UserStore>()(
   persist(
     (set, get) => ({
       user: null,
-      isLoading: false,
+
       setUser: (user) => set({ user }),
       clearUser: () => set({ user: null }),
 
       register: async (u, callback) => {
-        set({ isLoading: true });
         await handleApiResponse(userApi.register(u), {
           onSuccess: async () => {
-            // await get().profile();
+            await get().profile();
             callback?.();
           },
         });
-        set({ isLoading: false });
       },
 
       login: async (u, callback) => {
-        set({ isLoading: true });
         await handleApiResponse(userApi.login(u), {
           onSuccess: async () => {
-            // await get().profile();
+            await get().profile();
             callback?.();
           },
         });
-        set({ isLoading: false });
       },
 
       logout: async (callback) => {
-        set({ isLoading: true });
         await handleApiResponse(userApi.logout(), {
           onSuccess: () => {
             get().clearUser();
             callback?.();
           },
         });
-        set({ isLoading: false });
       },
 
       profile: async () => {
-        set({ isLoading: true });
         await handleApiResponse(userApi.me(), {
           showSuccessToast: false,
           onSuccess: (res) => {
@@ -68,9 +65,11 @@ export const useUserStore = create<UserStore>()(
             }
           },
         });
-        set({ isLoading: false });
       },
     }),
-    { name: "user" }
+    {
+      name: "user",
+      storage: createJSONStorage(() => cookieStorage),
+    }
   )
 );

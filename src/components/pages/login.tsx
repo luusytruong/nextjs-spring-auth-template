@@ -4,10 +4,9 @@ import { useState } from "react";
 import Input from "../ui/input";
 import { Lock, Mail } from "lucide-react";
 import FormAuthLayout from "../layouts/form-auth-layout";
-import { LoginRequest } from "@/types";
-import { handleApiResponse } from "@/utils/response";
-import { api, userApi } from "@/lib/axios";
-import { useRouter } from "next/navigation";
+import { LoginRequest } from "@/components/ui/types";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useUserStore } from "@/store/user.store";
 
 interface LoginProps {
   // props types here
@@ -15,16 +14,17 @@ interface LoginProps {
 
 export default function Login({}: LoginProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirect");
+  const login = useUserStore((s) => s.login);
   const [loginRequest, setLoginRequest] = useState<LoginRequest>({
     email: "",
     password: "",
   });
 
   const handleLogin = async () => {
-    handleApiResponse(userApi.login(loginRequest), {
-      onSuccess: () => {
-        router.replace("/profile");
-      },
+    await login(loginRequest, () => {
+      router.push(redirect || "/profile");
     });
   };
 

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React, { ComponentPropsWithoutRef } from "react";
 import { LucideIcon, LucideProps } from "lucide-react";
 import { cn } from "@/utils";
-import { ButtonIconProps } from "@/types";
+import { ButtonIconProps } from "@/components/ui/types";
 
 interface ButtonProps
   extends ButtonIconProps,

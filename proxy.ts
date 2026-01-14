@@ -1,3 +1,4 @@
+import { apiFetch } from "@/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function proxy(request: NextRequest) {
@@ -9,11 +10,9 @@ export async function proxy(request: NextRequest) {
   }
 
   if (refreshToken) {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/auth/refresh", {
+    const res = await apiFetch("/auth/refresh", {
       method: "POST",
-      headers: {
-        cookie: `refresh_token=${refreshToken.value}`,
-      },
+      headers: { cookie: `refresh_token=${refreshToken.value}` },
     });
 
     if (res.ok) {
@@ -31,7 +30,9 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  return NextResponse.redirect(new URL("/auth/login", request.url));
+  return NextResponse.redirect(
+    new URL("/login?redirect=" + encodeURIComponent(request.url), request.url)
+  );
 }
 
 export const config = {

@@ -1,5 +1,5 @@
-import { ApiResponse } from "@/types/response";
-import toast from "react-hot-toast";
+import { ApiResponse } from "@/components/ui/types/response";
+import { toast } from "sonner";
 
 // Type cho options để dễ mở rộng sau này
 interface HandleApiOptions<T> {
